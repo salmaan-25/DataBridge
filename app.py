@@ -28,13 +28,12 @@ def db_to_json_page():
 
 
 # ------------------ JSON → DB ------------------
+# ------------------ JSON → DB ------------------
 @app.route('/json_to_db', methods=['POST'])
 def json_to_db():
     try:
         db_type = request.form.get('db_type')
         db_name = request.form.get('db_name')
-        db_user = request.form.get('db_user')
-        db_password = request.form.get('db_password')
         file = request.files.get('json_file')
 
         if not file or not db_name or not db_type:
@@ -71,41 +70,27 @@ def json_to_db():
             conn.close()
 
             return render_template('result.html',
-                                   message=f"✅ JSON stored in SQLite DB: {db_name}.db",
+                                   message=f"✅ JSON converted to SQLite DB: {db_name}.db",
                                    download_link=f"/download/{db_name}.db")
 
-        # --- PostgreSQL ---
+        # --- PostgreSQL compatible SQL file ---
         elif db_type == "postgres":
-            import psycopg2
-            import subprocess
-
-            conn = psycopg2.connect(
-                host="127.0.0.1",
-                database=db_name,
-                user=db_user,
-                password=db_password,
-                port=5432
-            )
-            cur = conn.cursor()
-
-            cur.execute(f"DROP TABLE IF EXISTS {table_name}")
-            create_stmt = f"CREATE TABLE {table_name} ({', '.join([f'\"{col}\" TEXT' for col in columns])})"
-            cur.execute(create_stmt)
-
-            for row in data:
-                values = [str(row.get(col, '')) for col in columns]
-                cur.execute(f"INSERT INTO {table_name} VALUES ({', '.join(['%s'] * len(values))})", values)
-
-            conn.commit()
-            conn.close()
-
-            # --- Export PostgreSQL table to SQL file for download ---
             sql_file_path = os.path.join(app.config['OUTPUT_FOLDER'], f"{db_name}_{table_name}.sql")
-            dump_cmd = f'pg_dump -h localhost -U {db_user} -t {table_name} {db_name} > "{sql_file_path}"'
-            subprocess.run(dump_cmd, shell=True, check=True, env={**os.environ, "PGPASSWORD": db_password})
+            with open(sql_file_path, 'w', encoding='utf-8') as f:
+                # Generate CREATE TABLE statement
+                create_stmt = f"CREATE TABLE {table_name} (\n"
+                create_stmt += ",\n".join([f"    {col} TEXT" for col in columns])
+                create_stmt += "\n);\n\n"
+                f.write(create_stmt)
+
+                # Insert data statements
+                for row in data:
+                    values = [f"'{str(row.get(col, '')).replace('\'','\'\'')}'" for col in columns]
+                    insert_stmt = f"INSERT INTO {table_name} ({', '.join(columns)}) VALUES ({', '.join(values)});\n"
+                    f.write(insert_stmt)
 
             return render_template('result.html',
-                                   message=f"✅ JSON stored in PostgreSQL ({db_name})",
+                                   message=f"✅ JSON converted to PostgreSQL SQL file: {db_name}_{table_name}.sql",
                                    download_link=f"/download/{db_name}_{table_name}.sql")
         else:
             return "❌ Invalid database type."
@@ -113,6 +98,7 @@ def json_to_db():
     except Exception as e:
         print("⚠️ Error:", e)
         return f"Error: {e}"
+
 
 
 # ------------------ DB → JSON (Step 1: Upload DB) ------------------
