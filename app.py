@@ -80,10 +80,11 @@ def json_to_db():
             import subprocess
 
             conn = psycopg2.connect(
-                host="localhost",
+                host="127.0.0.1",
                 database=db_name,
                 user=db_user,
-                password=db_password
+                password=db_password,
+                port=5432
             )
             cur = conn.cursor()
 
