@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JSON to Database Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header class="site-header">
+    <div class="logo-container">
+        <img src="{{ url_for('static', filename='databridge.png') }}" alt="Site Logo" class="logo">
+        <h1 class="site-name">DataBridge</h1>
+    </div>
+</header>
+
+    <div class="container">
+        <h1>JSON ↔ Database Dashboard</h1>
+        <p>Select an option below to continue:</p>
+
+        <div class="option-container">
+            <a href="/json_to_db_page" class="option-card">JSON → DB</a>
+            <a href="/db_to_json_page" class="option-card">DB → JSON</a>
+        </div>
+    </div>
+</body>
+</html>

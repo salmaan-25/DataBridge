@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Select Table</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header class="site-header">
+    <div class="logo-container">
+        <img src="{{ url_for('static', filename='databridge.png') }}" alt="Site Logo" class="logo">
+        <h1 class="site-name">DataBridge</h1>
+    </div>
+</header>
+
+    <div class="container">
+        <h1> Select Table to Export</h1>
+        <form action="/export_json" method="post">
+            <input type="hidden" name="db_filename" value="{{ db_filename }}">
+            <label for="table_name">Choose Table:</label>
+            <select name="table_name" id="table_name" required>
+                {% for t in tables %}
+                    <option value="{{ t }}">{{ t }}</option>
+                {% endfor %}
+            </select>
+            <br><br>
+            <button type="submit">Export as JSON</button>
+        </form>
+    </div>
+</body>
+</html>

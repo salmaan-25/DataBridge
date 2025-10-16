@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JSON → Database</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header class="site-header">
+    <div class="logo-container">
+        <img src="{{ url_for('static', filename='databridge.png') }}" alt="Site Logo" class="logo">
+        <h1 class="site-name">DataBridge</h1>
+    </div>
+</header>
+
+    <div class="container">
+        
+        <h1>JSON → Database</h1>
+        <p>Upload JSON, choose database type, and provide DB details.</p>
+
+        <form action="/json_to_db" method="post" enctype="multipart/form-data">
+
+            <div class="form-group">
+                <label>JSON File:</label>
+                <input type="file" name="json_file" accept=".json" required>
+            </div>
+
+            <div class="form-group">
+                <label>Database Name:</label>
+                <input type="text" name="db_name" placeholder="Enter DB name" required>
+            </div>
+
+            <div class="form-group">
+                <label>Database Type:</label>
+                <select name="db_type" required>
+                    <option value="sqlite">SQLite</option>
+                    <option value="postgres">PostgreSQL</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Username (PostgreSQL only):</label>
+                <input type="text" name="db_user" placeholder="Optional">
+            </div>
+
+            <div class="form-group">
+                <label>Password (PostgreSQL only):</label>
+                <input type="password" name="db_password" placeholder="Optional">
+            </div>
+
+            <button type="submit" class="btn">Convert</button>
+        </form>
+
+        <a href="/" class="btn">← Back to Home</a>
+    </div>
+</body>
+</html>

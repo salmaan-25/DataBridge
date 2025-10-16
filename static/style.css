@@ -1,0 +1,211 @@
+/* ------------------ Global ------------------ */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f5f5f5;
+    margin: 0;
+    padding: 0;
+}
+
+/* ------------------ Header ------------------ */
+.site-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 30px;
+    background-color: #1e1e2f;
+    color: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    flex-wrap: wrap;
+    text-align: center;
+}
+.site-name{
+    color: white;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.logo {
+    height: 150px; /* slightly smaller for responsiveness */
+    width: auto;
+    margin-right: 15px;
+}
+
+.site-name {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin: 0;
+}
+
+/* ------------------ Container ------------------ */
+.container {
+    width: 90%;
+    max-width: 700px;
+    margin: 50px auto;
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 8px 20px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+h1 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+p {
+    color: #555;
+    margin-bottom: 20px;
+}
+
+/* ------------------ Forms ------------------ */
+.form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+input[type="file"],
+input[type="text"],
+input[type="password"],
+select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+button.btn {
+    background-color: #1e1e2f;
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+button.btn:hover {
+    background-color: #161622;
+}
+
+a.btn {
+    display: inline-block;
+    margin-top: 15px;
+    text-decoration: none;
+    color: white;
+    background-color: #1e1e2f;
+    padding: 10px 20px;
+    border-radius: 6px;
+}
+
+a.btn:hover {
+    background-color: #161622;
+}
+
+/* ------------------ Options ------------------ */
+.option-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-top: 30px;
+    gap: 15px;
+}
+
+.option-card {
+    background-color: #1e1e2f;
+    padding: 15px 25px;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 18px;
+    transition: transform 0.2s, background-color 0.2s;
+    flex: 1 1 180px;
+    text-align: center;
+
+    display: flex;           /* enable flex for vertical centering */
+    justify-content: center; /* horizontal center */
+    align-items: center;     /* vertical center */
+    min-height: 60px;        /* uniform height for all buttons */
+}
+
+
+.option-card:hover {
+    transform: scale(1.05);
+    background-color: #161622;
+}
+
+/* ------------------ Responsive ------------------ */
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+        padding: 20px;
+    }
+
+    .logo {
+        height: 60px;
+        margin-bottom: 10px;
+    }
+
+    .site-name {
+        font-size: 1.5rem;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    button.btn, a.btn {
+        width: 100%;
+    }
+
+    .option-container {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .option-card {
+        font-size: 16px;
+        padding: 15px 25px;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.3rem;
+    }
+
+    .site-name {
+        font-size: 1.2rem;
+    }
+
+    .option-card {
+        font-size: 14px;
+        padding: 12px 20px;
+    }
+
+    input[type="file"],
+    input[type="text"],
+    input[type="password"],
+    select {
+        font-size: 0.95rem;
+    }
+
+    button.btn, a.btn {
+        font-size: 14px;
+        padding: 10px 15px;
+    }
+}
